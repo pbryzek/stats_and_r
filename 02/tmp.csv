@@ -1,0 +1,18 @@
+unqiue(students$school_name)
+
+paste("there are", length(school_count))
+
+mean_reading <- summarize(students, mean(reading_Score))
+mean_math <- summarize(students, mean(math_score))
+passing_reading <- filter(students, reading_score>70)
+passing_reading_count <- nrow(passing_reading)
+percentage_reading <- passing_reading_count*100/student_count
+percentage_passing_reading <- round(percentage_passing_reading,2)
+
+school_grouping <- group_by(students, school_name)
+summarize(school_grouping, avg.reading=mean(reading_score), avg.math=mean(math_score))
+
+grade_grouping <- group_by(students, school_name, grade)
+summarize(grade_grouping, avg.reading=mean(reading_score), avg.math=mean(math_score))
+
+
