@@ -1,0 +1,181 @@
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(tidyverse)
+
+#Function to run the main method for the challenge
+run_main <- function() {
+  #Run the MPG .CSV analysis
+  run_mpg_analysis()
+  
+  #Run the Suspension .CSV analysis
+  run_suspension_analysis()
+}
+
+print_line_divider <- function() {
+  print("----------------------------------")
+}
+
+#Function to take a num and string to concatenate them
+create_str <- function(num, str) {
+  round.num = round(num, digits=2)
+  abs_num = abs(round.num)
+  
+  str.display <- paste(c(str, " r="), collapse = "")
+  str.display <- paste(c(str.display, round.num), collapse = "")
+  str.display <- paste(c(str.display, " Absolute val of r="), collapse = "")
+  str.display <- paste(c(str.display, abs_num), collapse = "")
+  
+  return (str.display)
+}
+
+#Function to loop through the different lot types from the Suspension Dataset 
+#It will run a t test on each Lot's PSI against a mu of 1500
+#Finally it runs a t-test across the set's entire PSI dataset against a mu of 1500
+run_lots_psi_analysis <- function(suspension_data) {
+  print_line_divider()
+  
+  #Loop through all the lots and run psi analysis on each
+  lot.list <- c("Lot1", "Lot2", "Lot3")
+  for (lot in lot.list) {
+    lot.num <- subset(suspension_data, Manufacturing_Lot==lot)
+    run_lot_psi_analysis(lot.num)
+  }
+  print_line_divider()
+  
+  #Run T Test on entire suspension dataset for PSI against 1500 mu
+  t.test(suspension_data$PSI,mu = 1500)
+}
+
+run_lot_psi_analysis <- function(lot.set) {
+  lot.set.psi <- lot.set$PSI
+  t.test.results <- t.test(lot.set.psi, mu=1500)
+  print(t.test.results)
+}
+
+#Function to run the analysis on the Suspension Data
+run_suspension_analysis <- function() {
+  #VehicleID, Manufacturing_Lot, PSI
+  suspension_data <- read.csv(file="./Suspension_Coil.csv", stringsAsFactors = F,check.names = F)
+  lot_summary <- suspension_data %>% group_by(Manufacturing_Lot) %>% 
+    summarise(Mean=mean(PSI),Median=median(PSI),Variance=var(PSI),SD=sd(PSI))
+  total_summary <- suspension_data %>% 
+    summarise(Mean=mean(PSI),Median=median(PSI),Variance=var(PSI),SD=sd(PSI))
+  
+  print_line_divider()
+  print(lot_summary)
+  print_line_divider()
+  print(total_summary)
+  
+  run_lots_psi_analysis(suspension_data)
+}
+
+#Run the analysis on the MPG .CSV provided
+run_mpg_analysis <- function () {
+  #vehicle.length, vehicle.weight, spoiler.angle. ground.clearance, AWD, mpg
+  mechacar.mpg <- read.csv(file="./MechaCar_mpg.csv")
+  
+  calculate_mpg_cor(mechacar.mpg)
+  
+  run_mpg_lm(mechacar.mpg)
+}
+
+#Function to run a multiple linear regression model related to MPG  
+run_mpg_lm <- function(mechacar.mpg) {
+  print_line_divider()
+  
+  mecha_lm <- lm(mpg ~ vehicle.length + vehicle.weight + spoiler.angle + ground.clearance + AWD,data=mechacar.mpg)
+  mecha.summary <- summary(mecha_lm)
+  print(mecha.summary)
+}
+
+plot_mpg_cors <- function(mechacar.mpg, vehicle.length, vehicle.weight, spoilter.angle, ground.clearance, vehicle.awd, vehicle.mpg) {
+  #Bool to control the user prompts to pause the program to allow me to save the graphs
+  prompts_on = F
+  
+  plt1 <- ggplot(data=mechacar.mpg, aes(x=vehicle.mpg,y=vehicle.length))
+  plt1 <- plt1 + geom_point()
+  show(plt1)
+  if(prompts_on){
+    readline(prompt="Proceed to Next Plot?")
+  }
+  
+  plt2 <- ggplot(data=mechacar.mpg, aes(x=vehicle.mpg,y=vehicle.weight))
+  plt2 <- plt2 + geom_point()
+  show(plt2)
+  if(prompts_on){
+    readline(prompt="Proceed to Next Plot?")
+  }
+  
+  plt3 <- ggplot(data=mechacar.mpg, aes(x=vehicle.mpg,y=spoilter.angle))
+  plt3 <- plt3 + geom_point()
+  show(plt3)
+  if(prompts_on){
+    readline(prompt="Proceed to Next Plot?")
+  }
+  
+  plt4 <- ggplot(data=mechacar.mpg, aes(x=vehicle.mpg,y=ground.clearance))
+  plt4 <- plt4 + geom_point()
+  show(plt4)
+  if(prompts_on){
+    readline(prompt="Proceed to Next Plot?")
+  }
+  
+  plt5 <- ggplot(data=mechacar.mpg, aes(x=vehicle.mpg,y=vehicle.awd))
+  plt5 <- plt5 + geom_point()
+  show(plt5)
+}
+
+#Function to calculation the correlations of each var with respect to MPG
+calculate_mpg_cor <- function(mechacar.mpg) {
+  vehicle.length <- mechacar.mpg[['vehicle.length']]
+  vehicle.weight <- mechacar.mpg[['vehicle.weight']]
+  spoiler.angle <- mechacar.mpg[['spoiler.angle']]
+  ground.clearance <- mechacar.mpg[['ground.clearance']]
+  vehicle.awd <- mechacar.mpg[['AWD']]
+  vehicle.mpg <- mechacar.mpg[['mpg']]
+  
+  #Calculate the correlation between all variables and MPG
+  mpg.length.cor <- cor(vehicle.length,vehicle.mpg)
+  mpg.weight.cor <- cor(vehicle.weight,vehicle.mpg)
+  mpg.spoiler.cor <- cor(spoilter.angle,vehicle.mpg)
+  mpg.clearance.cor <- cor(ground.clearance,vehicle.mpg)
+  mpg.awd.cor <- cor(vehicle.awd,vehicle.mpg)
+  
+  #Create the display string for the correlation report
+  mpg.length.str <- create_str(mpg.length.cor, "MPG to Vehicle Length:")
+  mpg.weight.str <- create_str(mpg.weight.cor, "MPG to Vehicle Weight:")
+  mpg.spoiler.str <- create_str(mpg.spoiler.cor, "MPG to Spoiler Angle:")
+  mpg.clearance.str <- create_str(mpg.clearance.cor, "MPG to Ground Clearance:")
+  mpg.awd.str <- create_str(mpg.awd.cor, "MPG to Vehicle AWD:")
+  
+  #Put all the COR strings in a list to easily print them 
+  cor.list <- c(mpg.length.str,mpg.weight.str,mpg.spoiler.str,mpg.clearance.str,mpg.awd.str)
+  for (cor.str in cor.list) {
+    print(cor.str)
+  }
+  print_line_divider()
+  
+  plot_mpg_cors(mechacar.mpg, vehicle.length, vehicle.weight, spoiler.angle, ground.clearance, vehicle.awd, vehicle.mpg)
+  create_mpg_lm(mechacar.mpg, vehicle.length, vehicle.weight, spoiler.angle, ground.clearance, vehicle.awd, vehicle.mpg)
+  
+  print_line_divider()
+}
+
+#Run a linear regression model on each variable with respect to MPG
+create_mpg_lm <- function(mechacar.mpg, vehicle.length, vehicle.weight, spoiler.angle, ground.clearance, vehicle.awd, vehicle.mpg) {
+  lm.length <- lm(vehicle.mpg ~ vehicle.length, data=mechacar.mpg)
+  lm.weight <- lm(vehicle.mpg ~ vehicle.weight, data=mechacar.mpg)
+  lm.angle <- lm(vehicle.mpg ~ spoiler.angle, data=mechacar.mpg)
+  lm.clearance <- lm(vehicle.mpg ~ ground.clearance, data=mechacar.mpg)
+  lm.awd <- lm(vehicle.mpg ~ vehicle.awd, data=mechacar.mpg)
+  
+  print(lm.length)
+  print(lm.weight)
+  print(lm.angle)
+  print(lm.clearance)
+  print(lm.awd)
+}
+
+#Run the main function
+run_main()

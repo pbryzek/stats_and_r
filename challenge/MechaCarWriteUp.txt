@@ -1,0 +1,164 @@
+Using the MechaCar_mpg.csv file, I utilzed the R script to determine the correlation between the variables 
+in the .CSV and the MPG for all 50 vehicle models listed. The variables contained were: Vehicle Length, Vehicle Weight, Spoiler Angle, 
+Ground Clearance, Vehicle AWD, and Vehicle MPG. I took the MPG column and compared it to each variable listed to get the correlation factor r.
+
+Correlation of MPG to other Variables
+"MPG to Vehicle Length: r=0.61 Absolute val of r=0.61"
+"MPG to Vehicle Weight: r=0.09 Absolute val of r=0.09"
+"MPG to Spoiler Angle: r=-0.02 Absolute val of r=0.02"
+"MPG to Ground Clearance: r=0.33 Absolute val of r=0.33"
+"MPG to Vehicle AWD: r=-0.14 Absolute val of r=0.14"
+
+Using the following chart for reference:
+Absolute Value of r 	Strength of Correlation
+r < 0.3 	            None or very weak
+0.3 ≤ r < 0.5 	        Weak
+0.5 ≤ r < 0.7 	        Moderate
+r ≥ 0.7 	            Strong
+
+We can determine the following correlations: 
+1) A Moderate correlation between MPG and Vehicle Length
+2) A Very Weak correlation between MPG and Vehicle Weight
+3) A Very Weak correlation between MPG and Spoiler Angle
+4) A Weak correlation between MPG and Ground Clearance
+5) A Very Weak correlation between MPG and AWD
+
+From that analysis, we can say that only Vehicle Length has a moderate correlation with MPG, meaning there is a moderate correlation as vehicle length increases, 
+MPG increases and likewise as the length decreases the MPG decreases. Ground Clearance and MPG demonstrate a Weak correlation, and all other variables demonstrate a 
+Very Weak correlation related to a vehicle's MPG.
+
+I also produced correlation scatter plots for each variable combination from ggplot and stored the graphs:
+1) ./mpg_plots/mpg_length.png
+2) ./mpg_plots/mpg_weight.png
+3) ./mpg_plots/mpg_angle.png
+4) ./mpg_plots/mpg_clearance.png
+5) ./mpg_plots/mpg_awd.png
+
+I then ran the lm function calls on each pair of variables to the MPG. 
+
+lm(formula = vehicle.mpg ~ vehicle.length, data = mechacar.mpg)
+Coefficients:
+   (Intercept)  vehicle.length  
+       -25.062           4.673  
+
+lm(formula = vehicle.mpg ~ vehicle.weight, data = mechacar.mpg)
+Coefficients:
+   (Intercept)  vehicle.weight  
+     4.042e+01       7.649e-04  
+
+lm(formula = vehicle.mpg ~ spoiler.angle, data = mechacar.mpg)
+Coefficients:
+  (Intercept)  spoiler.angle  
+     46.07616       -0.01659  
+
+lm(formula = vehicle.mpg ~ ground.clearance, data = mechacar.mpg)
+Coefficients:
+     (Intercept)  ground.clearance  
+          19.418             2.022  
+
+lm(formula = vehicle.mpg ~ vehicle.awd, data = mechacar.mpg)
+Coefficients:
+(Intercept)  vehicle.awd  
+     47.313       -4.368  
+
+From the linear regression models analyzed with respect to MPG for the vehicles, we can see that 
+
+The following Linear Regression Model was created by combining all the variables and relating them to MPG in a single regression model.
+lm(formula = mpg ~ vehicle.length + vehicle.weight + spoiler.angle + 
+    ground.clearance + AWD, data = mechacar.mpg)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-19.4701  -4.4994  -0.0692   5.4433  18.5849 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      -1.040e+02  1.585e+01  -6.559 5.08e-08 ***
+vehicle.length    6.267e+00  6.553e-01   9.563 2.60e-12 ***
+vehicle.weight    1.245e-03  6.890e-04   1.807   0.0776 .  
+spoiler.angle     6.877e-02  6.653e-02   1.034   0.3069    
+ground.clearance  3.546e+00  5.412e-01   6.551 5.21e-08 ***
+AWD              -3.411e+00  2.535e+00  -1.346   0.1852    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 8.774 on 44 degrees of freedom
+Multiple R-squared:  0.7149,	Adjusted R-squared:  0.6825 
+F-statistic: 22.07 on 5 and 44 DF,  p-value: 5.35e-11
+
+The output of the multiple linear regression model indicates the following equation for MPG:
+MPG = -1.040e+02 + 6.267e+00(vehicle.length) + 1.245e-03(vehicle.weight) + 6.877e-02(spoiler.angle) + 3.546e+00(ground.clearance) + -3.411e+00(AWD)
+
+As indicated from the individual linear regression model, the variables that have a slope farthest away from 0 are the ones with the 
+strongest correlation: vehicle.length and ground.clearance. We also observe that only vehicle.length and ground.clearance are the variable represented that have 
+Pr(>|t|) or p-value under the threshold of .05 meaning these are the only two that are statistically significant. As the other vars have p-values greater than .05, they 
+are not considered statistically significant.
+
+Based on the Multiple R-squared output of .7149, we can say that this model will accurately predict the MPG about 71.74% of the time. The overall p-value of the model is 5.35e-11 which is much smaller than the threshold value of .05, 
+thus we can reject the null hypothesis and state that the slope of the model is not 0. 
+This model indicates the problem of overfitting as the overall p-value is small but only 2 of the 5 variables analyzed are statistically significant meaning 
+the data may fit well for this set but will not be a good indicator of future MPG prediction.
+===
+Summary Statistics Table of PSI Grouped By Manufacturing Lot from Suspension_Coil.csv
+Manufacturing_Lot Mean   Median   Variance  SD
+Lot1              1500   1500     0.980     0.990
+Lot2              1500   1500     7.47      2.73 
+Lot3              1496   1498     170       13.0  
+
+Results of t-test of PSI per Manufacturing Lot from Suspension_Coil.csv against a mu of 1500
+
+data:  lot.set.psi - Lot1
+t = 0, df = 49, p-value = 1
+alternative hypothesis: true mean is not equal to 1500
+95 percent confidence interval:
+ 1499.719 1500.281
+sample estimates:
+mean of x 
+     1500 
+
+data:  lot.set.psi
+t = 0.51745, df = 49, p-value = 0.6072
+alternative hypothesis: true mean is not equal to 1500
+95 percent confidence interval:
+ 1499.423 1500.977
+sample estimates:
+mean of x 
+   1500.2 
+
+data:  lot.set.psi
+t = -2.0916, df = 49, p-value = 0.04168
+alternative hypothesis: true mean is not equal to 1500
+95 percent confidence interval:
+ 1492.431 1499.849
+sample estimates:
+mean of x 
+  1496.14 
+
+Summary Statistics Table of overall PSI from Suspension_Coil.csv
+Mean    Median  Variance  SD
+1498.78 1500    62.29356  7.892627
+
+Results of t-test of overall PSI from Suspension_Coil.csv against a mu of 1500
+
+One Sample t-test
+data:  suspension_data$PSI
+t = -1.8931, df = 149, p-value = 0.06028
+alternative hypothesis: true mean is not equal to 1500
+95 percent confidence interval:
+ 1497.507 1500.053
+sample estimates:
+mean of x 
+  1498.78 
+
+From the t-test of the individual Lots with respect to PSI, we can see from Lot1,Lot2,Lot3 they p-values of 1, .6072, and .04168 respectively. 
+Lots 1 and 2 represent high p-values which give us confidence that we can not reject the null hypothesis or in otherwords, weak evidence against the mu is 1500.
+Lot3 on the other hand shows a p-value of .04168 which is under the threshold of .05 indicating strong evidence against the null hypothesis thus we can reject the null hypothesis that the mu = 1500. We can also note that a p-value of .04168 is relatively close to the threshold of .05, 
+thus we can reject the Null Hypothesis with a grain of salt.
+Taking the overall data set for PSI shows a p-value of .06028 which is only marginally above the threshold of .05. The value does lead us to accept the null hypothesis that the mu = 1500 but without great confidence thus leaving us with a bit of doubt.
+
+Analyzing the variance of each individual lot shows that Lot1 has almost no variance with its value at 0.98, indicating the data is very closely distributed to the mean of 1500.
+Lot 2 shows a modest variance of 7.47 while lot3 shows the greatest variance of 170, represeting a dataset most scattered from the mean value of 1500.
+Taking into consideration the entire datset shows a variance of 62.29 and we know the majority of this variance originates from Lot3.
+
+Looking at the range of PSI in Lot3, we can see PSI values from 1452-1542, representing 48 lower than the mean at the low end and 42 above the mean at the high end of the range. 
+Since the manufacturer wants to ensure that the variance of the coils do not exceed 100 pounds, we can confidently say based on the range and the variance itself that we are confident the coils will not exceed the 100 pounds limitation.
