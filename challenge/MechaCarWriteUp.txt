@@ -98,7 +98,10 @@ Based on the Multiple R-squared output of .7149, we can say that this model will
 thus we can reject the null hypothesis and state that the slope of the model is not 0. 
 This model indicates the problem of overfitting as the overall p-value is small but only 2 of the 5 variables analyzed are statistically significant meaning 
 the data may fit well for this set but will not be a good indicator of future MPG prediction.
-===
+=========================================================================================================
+
+Next I open the Suspension_Coil.csv file to analyze the dataset contained here with a focus on the PSI represented across the vehicles.
+
 Summary Statistics Table of PSI Grouped By Manufacturing Lot from Suspension_Coil.csv
 Manufacturing_Lot Mean   Median   Variance  SD
 Lot1              1500   1500     0.980     0.990
@@ -162,3 +165,46 @@ Taking into consideration the entire datset shows a variance of 62.29 and we kno
 
 Looking at the range of PSI in Lot3, we can see PSI values from 1452-1542, representing 48 lower than the mean at the low end and 42 above the mean at the high end of the range. 
 Since the manufacturer wants to ensure that the variance of the coils do not exceed 100 pounds, we can confidently say based on the range and the variance itself that we are confident the coils will not exceed the 100 pounds limitation.
+=========================================================================================================
+Statistical Study Design
+
+As a proper extension from the the statistical analysis performed on the MechaCar prototype, it is proper due diligence to compare not only the dataset of our prototype in a vaccum but among the competition to see how it ranks overall in the marketplace.
+Thus the first step of running this study is to identify all the relevant competitors that MechaCar will be competing against once it is fully live in production. 
+As we know this is a car that is focused on MPG, we can eliminate those car manufacturers that are producing electric only vehicles e.g. Tesla. We can also eliminate any electric model of car that is produced by any car manufacturer e.g. I3 from BMW.
+Further more we will focus to create an apples to apples examination and thus will not be interested in reviewing the data points for trucks, boats, planes, tiny cars, motorcycles - we will find comparable vehicles to MechaCar in length, size, and type and strictly compare models in that set.
+
+We will adhere to statistical conventions to optimize our dataset and reduce the skew and bias as much as possible. For instance, the larger the dataset we have to work on the better conclusions 
+we can draw and higher confidence we can have in that data sample. We are aware that getting 100% of the population from each model of car compared is not possible, but understand that a large enough 
+sample is required to run statistically significant tests. Abiding by commonly accepted parameters in the statistical community, we will analyze no fewer than 30 different comparable vehicles and obtain no fewer than 30 different instances of that particular model.
+As we are introducing a new model into the marketplace with MechaCar, we will only accept other models that are current in the make Year i.e. no cars from past years or generations will be allowed in the sample. 
+Furthermore, the particular models analyzed will not be chosen with any selection bias and will be randomly selected using a random number generator to selec the specific instances of that make and model that is part of our set.
+Just as our data with MechaCar represented vehicles that were produced from 3 different lots, we will also require that the data sample acquired from each manufacturer will be representative of the various lots that each Manufacturer has.
+
+Once we have identified the specific models to analyze, the next step is to identify the various data points to research.
+Miles Per Gallon (MPG) - 
+
+Upper management is looking for your expertise and wants you to design a study that compares the performance of the MechaCar prototype vehicle to other comparable vehicles on the market. 
+In the MechaCarWriteUp.txt text file, write a short description of a statistical study that can quantify how the MechaCar outperforms the competition. In your study design, be sure to write about 
+the following considerations:
+
+Think critically about what metrics you would think would be of interest to a consumer (cost, fuel efficiency, color options, etc.).
+Determine what question we would ask, what the null and alternative hypothesis would be to answer that question, and what statistical test could be used to test this hypothesis.
+Knowing what test should be used, what data should be collected? 
+
+Presents a cohesive,
+comprehensive study design that
+includes the following details:
+✓ The metrics you would think
+would be of interest to a consumer,
+as well as why you think they would
+be of interest.
+✓ The question your study will ask,
+as well as what the null and
+alternative hypothesis would be to
+answer that question, and what
+
+statistical test could be used to test
+this hypothesis.
+✓ Given your selected statistical
+test, what data should be collected
+for your study.
