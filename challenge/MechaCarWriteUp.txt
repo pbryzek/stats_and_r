@@ -11,10 +11,10 @@ Correlation of MPG to other Variables
 
 Using the following chart for reference:
 Absolute Value of r 	Strength of Correlation
-r < 0.3 	            None or very weak
-0.3 ≤ r < 0.5 	        Weak
-0.5 ≤ r < 0.7 	        Moderate
-r ≥ 0.7 	            Strong
+r < 0.3 	               None or very weak
+0.3 ≤ r < 0.5 	          Weak
+0.5 ≤ r < 0.7 	          Moderate
+r ≥ 0.7 	               Strong
 
 We can determine the following correlations: 
 1) A Moderate correlation between MPG and Vehicle Length
@@ -176,35 +176,67 @@ Further more we will focus to create an apples to apples examination and thus wi
 We will adhere to statistical conventions to optimize our dataset and reduce the skew and bias as much as possible. For instance, the larger the dataset we have to work on the better conclusions 
 we can draw and higher confidence we can have in that data sample. We are aware that getting 100% of the population from each model of car compared is not possible, but understand that a large enough 
 sample is required to run statistically significant tests. Abiding by commonly accepted parameters in the statistical community, we will analyze no fewer than 30 different comparable vehicles and obtain no fewer than 30 different instances of that particular model.
-As we are introducing a new model into the marketplace with MechaCar, we will only accept other models that are current in the make Year i.e. no cars from past years or generations will be allowed in the sample. 
+As we are introducing a new model into the marketplace with MechaCar, we will only accept other models that are 1 year old in the make Year i.e. no cars from past years or generations will be allowed in the sample. This will allow for a current view of the current generation 
+of cars and not compare with older years occurring in a potentially drastically different economy than that of today. Likewise the experiment will focus exclusively on the number of sales of that make for a 12 month period following it's release.
 Furthermore, the particular models analyzed will not be chosen with any selection bias and will be randomly selected using a random number generator to selec the specific instances of that make and model that is part of our set.
 Just as our data with MechaCar represented vehicles that were produced from 3 different lots, we will also require that the data sample acquired from each manufacturer will be representative of the various lots that each Manufacturer has.
+Since we are focused on releasing the MechaCar in the United States, all the data obtained related to the make, model, and sales of the cars will be focused on data acquired in the United States.
+It is important that we do all we can to ensure the data is qualified and represents a normal distribution as the tests performed expected the data to display normal distribution properties.
 
 Once we have identified the specific models to analyze, the next step is to identify the various data points to research.
-Miles Per Gallon (MPG) - 
 
-Upper management is looking for your expertise and wants you to design a study that compares the performance of the MechaCar prototype vehicle to other comparable vehicles on the market. 
-In the MechaCarWriteUp.txt text file, write a short description of a statistical study that can quantify how the MechaCar outperforms the competition. In your study design, be sure to write about 
-the following considerations:
+Response Variable (Y):
+Number of units sold 
 
-Think critically about what metrics you would think would be of interest to a consumer (cost, fuel efficiency, color options, etc.).
-Determine what question we would ask, what the null and alternative hypothesis would be to answer that question, and what statistical test could be used to test this hypothesis.
-Knowing what test should be used, what data should be collected? 
+Variables of Interest (X)- Why they are of interest to a consumer?
+Miles Per Gallon (MPG) - Gas cost is the number one ongoing cost associated with owning a car aside from maintenance. Consumers are greatly concerned not only with cost of gas but also the level of pollution created by their burning of fuel.
+Cruise Control? - Given long distance trips, consumers rely on cruise control to avoid speeding violations. It is also a feature that many consumers may expect to have in a new car purchase in 2021.
+Number of Doors - Here we would compare 2 and 4 door vehicles, family buyers may prefer 4 door vehicles while performance and sports oriented consumer may prefer a 2 door.
+Make - Is this perhaps the most important variable of all - the make of the vehicle itself? It will be interesting to know if make alone accounts for the strongest correlation with number of vehicles sold. Lots of consumers only make big purchases like a car from a trusted brand and many remain loyal to that brand.
+Trim of Car  - Types may include aluminum, chrome, or timber. It will be enlightening to understand if trim plays a factor in the decision making process, if it does not, perhaps MechaCar can avoid having to manufacturer different types of trim and still maintain sales.
+Body Type -  Types may include cope, sedan, convertible, hatchback, and wagon. Understanding the top body types a consumer prefers will influence the manufacturing process for MechaCar. 
+Length - Some drivers living in congested cities may prefer shorter vehicles, while those living in more mountaineous regions may prefer longer vehicles. Perhaps there are lengths that are too short or long that result in far fewer number of sales.
+Weight - Weight influences the safety level of the car. Cars that are too light may not be thought of as safe enough in case of an accident. On the other hand, cars that are too heavy may be considered sluggish and gas guzzlers.
+Cylinders - The more cylinders a car has the more power a car can produce. Cylinder levels may include 4,6, and 8. The data will reveal how much a buyer cars, perhaps so long as there is a minimal threshold of cylinders, such as 4, sales are not impacted.
+Enginer Size (Liters) -  The more cylinders generally produce more power while the fewer number of cylinders results in better fuel economy. 
+Horse Power - Measure of the power produced by the engine which relates to speed of the car. Some consumers may require a certain amount of HP to make a purchase.
+Leather - In general the consumer associated leather with a high class vehicle, though perhaps the data reveals that more sales are for cars without leather due to lower cost.
+Upgraded Sound System - Allows the user to have an enhanced driving experience by listening to high quality sound such as Bose or Harman Kardan. Though is this factor significant enough to influence the purhcase?
+Sports Package? - Depending on the user's life situation (family or single) and location (city or rural) spors package may or may not influence the numbe of sales.
+Sunroof - Allows another ability for the user to get fresh air into the car. Also allows for direct sun or moonlight to enter the vehicle - some users may expect this feature.
 
-Presents a cohesive,
-comprehensive study design that
-includes the following details:
-✓ The metrics you would think
-would be of interest to a consumer,
-as well as why you think they would
-be of interest.
-✓ The question your study will ask,
-as well as what the null and
-alternative hypothesis would be to
-answer that question, and what
+Question of the Study:
+How do the 15 factors (variables) listed above influence the number of units of that particular make and model sold in the 12 month period following it's release?
 
-statistical test could be used to test
-this hypothesis.
-✓ Given your selected statistical
-test, what data should be collected
-for your study.
+Type of Tests:
+Multiple Regression 
+Linear Regression 
+Pearson's Correlation Test
+
+Null Hypothesis
+Multiple Regression: There are no statistically significant relations among the number of car units sold and all the variables of interest
+Linear Regression: There is no statistically significant relation between the number of car units sold and each individual variable of interest
+Pearson's: Correleation coefficient is not significantly different from 0
+
+Alternative Hypothesis
+Multiple Regression: There are statistically significant relations among the number of car units sold and all the variables of interest
+Linear Regression: There is a statistically significant relation between the number of car units sold and each individual variable of interest
+Pearson's: Correleation coefficient is significantly different from 0
+
+p-value significance level:
+Since the results of this experiment will dictate the design of MechaCar, decisions that represent a lot of time and money, We will set the p-value at the high value of .01, indicating a 99% of drawing accurate conclusions from that results, and only 1% chance of being wrong. 
+
+How to evaluate H0 and HA?
+Running the linear and multiple linear regresion tests as described above will yield various p-values for each test. We will check the p-values against the stated threshold of .01, any p-value under .01 will allow us to 
+confidently reject the null hypothesis and accept the alternative hypothesis.
+
+The outputs of each Pearson's Correlation Test will yield a Pearson's Correlation coefficient r. Using the absolute value of r for each test and referencing the following table:
+
+Absolute Value of r 	Strength of Correlation
+r < 0.3 	               None or very weak
+0.3 ≤ r < 0.5 	          Weak
+0.5 ≤ r < 0.7 	          Moderate
+r ≥ 0.7 	               Strong
+
+We will be able to determine the strength of correlation for every variable of interest as it relates to the number of units sold. 
+We will be interested to know which variable demonstrate at least Moderate but primarily strong correlation in order to reject the null hypothesis. For correlations that indicate very weak or weak correlation, that will allow us to accept the null hypothesis that r is effectively no differnet from 0.
